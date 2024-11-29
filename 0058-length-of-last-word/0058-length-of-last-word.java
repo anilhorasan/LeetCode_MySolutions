@@ -1,6 +1,15 @@
 class Solution {
-    
     public int lengthOfLastWord(String s) {
+        int count = 0;
+        int i;
+        for(i = s.length()-1; i >= 0; i--){
+            if(s.charAt(i) != ' ') break;
+        }
+        while (i >= 0 &&  s.charAt(i--) != ' ' )     count++;
+        return count;
+    }
+
+    public int lengthOfLastWord2(String s) {
         int len = s.length();
         int count = 0;
         for(int i = len-1; i >= 0; i--){
@@ -9,26 +18,9 @@ class Solution {
         }
         return count;
     }
-    
-    
-    public int lengthOfLastWord2(String s){
-        
-        int len = s.length();
-        char c = s.charAt(len-1);
-        
-        while(c == ' '){
-            len -= 1;
-            c = s.charAt(len-1);
-        }
-        int result = 0;
-        while(c != ' ' && len > 0){
-            len -= 1;
-            c = s.charAt(len);
-            result++;
-        }
-        if(c == ' ') result--;
-        
-        return result;
-    
+
+    public int lengthOfLastWord3(String s) {
+        String[] splited = s.split("\\s+");
+        return (splited[splited.length-1].length());
     }
 }
