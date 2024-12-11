@@ -1,37 +1,51 @@
 class Solution {
-    public int maxProfit(int[] prices) {
+        // Single-pass
+        // Time complexity O(n)
+        // Space complexity O(1)
+        public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
         int maxProfit = 0;
-        int len = prices.length;
-        int price_ifSoldToday = 0;
-        int min = Integer.MAX_VALUE;
-        for(int i = 0; i < len; i++){
-            if(prices[i] < min) min = prices[i];
-            price_ifSoldToday = prices[i] - min;
-            if(maxProfit < price_ifSoldToday) maxProfit = price_ifSoldToday;
+
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price; // Update minimum price
+            } else {
+                maxProfit = Math.max(maxProfit, price - minPrice); // Calculate profit
+            }
         }
+
         return maxProfit;
     }
 
-    public int maxVal(int[] input, int start, int end){
-        int max = Integer.MIN_VALUE;
-        int maxIndex = 0;
-        for(int i = start; i <= end; i++){
-            if(input[i] > max) {
-               max = input[i]; 
-               maxIndex = i;
-            }
+    // Kadane's Algorithm
+    // Time complexity O(n)
+    // Space complexity O(1)
+    public int maxProfit2(int[] prices) {
+        int maxProfit = 0;
+        int currentProfit = 0;
+
+        for (int i = 1; i < prices.length; i++) {
+            int diff = prices[i] - prices[i - 1];
+            currentProfit = Math.max(0, currentProfit + diff);
+            maxProfit = Math.max(maxProfit, currentProfit);
         }
-        return maxIndex;
+
+        return maxProfit;
     }
-    public int minVal(int[] input, int start, int end){
-        int min = Integer.MAX_VALUE;
-        int minIndex = 0;
-        for(int i = start; i <= end; i++){
-            if(input[i] < min) {
-               min = input[i]; 
-               minIndex = i;
+
+
+    // Brute force - Nested Loops
+    // Time complexity O(n^2)
+    // Space complexity O(1)
+    public int maxProfit3(int[] prices) {
+        int max = 0;
+        for(int i = 0; i < prices.length-1; i++){
+            for(int j = i+1; j < prices.length; j++){
+                if(prices[j] - prices[i] > max) {
+                    max = prices[j] - prices[i];
+                }
             }
         }
-        return minIndex;
+        return max;      
     }
 }
