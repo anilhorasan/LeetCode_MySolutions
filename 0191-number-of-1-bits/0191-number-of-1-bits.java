@@ -2,7 +2,7 @@ class Solution {
     // Iterative Bit Manipulation Use bitwise AND and right shift to count 1 bits.
     // Time complexity O(32)  as an integer has at most 32 bits.
     // Space complexity O(1) 
-    public int hammingWeight(int n) {
+    public int hammingWeight3(int n) {
         int count = 0;
         while (n != 0) {
             count += n & 1; // Check if the least significant bit is 1
@@ -27,7 +27,7 @@ class Solution {
     // Built-in Algorithm
     // Time complexity O(1)
     // Space complexity O(1)
-    public int hammingWeight3(int n) {
+    public int hammingWeight(int n) {
         return Integer.bitCount(n);
     }
 
