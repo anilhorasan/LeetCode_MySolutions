@@ -2,7 +2,7 @@ class Solution {
     // 
     // Time complexity: O(n) since we go over each element in the array
     // Space complexity: O(1) we create 2 int, 1 boolean variables and an ArrayList, so O(4) => O(1)
-    public List<String> summaryRanges(int[] nums) {
+    public List<String> summaryRanges2(int[] nums) {
         List<String> result = new ArrayList<>();
         if (nums.length == 0) return result;
         int start_index = 0;
@@ -26,5 +26,22 @@ class Solution {
         else        result.add(nums[nums.length-1] + "");
         return result;
         
+    }
+
+    public List<String> summaryRanges(int[] nums) {
+        List<String> result = new ArrayList<>();
+        if (nums.length == 0) return result;
+        int start = nums[0];
+        for (int i = 1; i <= nums.length; i++) {
+            if (i == nums.length || nums[i] != nums[i - 1] + 1) {
+                if (start == nums[i - 1]) {
+                    result.add(String.valueOf(start));
+                } else {
+                    result.add(start + "->" + nums[i - 1]);
+                }
+                if (i < nums.length) start = nums[i];
+            }
+        }
+        return result;
     }
 }
